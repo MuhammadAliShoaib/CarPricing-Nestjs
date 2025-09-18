@@ -16,16 +16,13 @@ import {
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './users.service';
-import {
-  Serialize,
-  SerializeIntercepetor,
-} from '../../src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
-import { AuthGuard } from '../../src/guards/auth.guard';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -56,11 +53,10 @@ export class UsersController {
   //   return this.userSerivce.findOne(session.userId);
   // }
 
-
   @Get('user/me')
   @UseGuards(AuthGuard)
   getProfile(@CurrentUser() user: User) {
-    return user
+    return user;
   }
 
   @Post('logout')
